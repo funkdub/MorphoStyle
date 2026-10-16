@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+checkpoints/**/*.pt
+checkpoints/**/*.pth
+outputs/
+data/
+assets/smpl/
+*.log
+.DS_Store
+assets/t2m/
+._*

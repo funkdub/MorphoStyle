@@ -1,0 +1,198 @@
+critic:
+  betas:
+  - 0.0
+  - 0.9
+  hidden:
+  - 128
+  - 256
+  - 512
+  lambda_gp: 10.0
+  lr: 0.0001
+  n_critic: 1
+cross_domain:
+  enabled: true
+  ratio: 0.5
+cross_root_height_from_style: true
+cycle_warmup: 0
+data:
+  batch_size: 24
+  betas_shared_path: data/100STYLE/betas/betas_shared.npy
+  data_dir: data/100STYLE/new_joint_vecs
+  mapping_path: data/100STYLE/id_mapping.json
+  max_motion_length: 196
+  min_motion_length: 40
+  motion_mean_path: assets/hml3d_mean.npy
+  motion_std_path: assets/hml3d_std.npy
+  neutral_style_name: Neutral
+  num_workers: 3
+  window_size: 196
+  window_stride: 196
+diversity_warmup: 0
+foot_dims:
+- 259
+- 260
+- 261
+- 262
+hml3d:
+  beta_dir: data/HumanML3D/betas
+  identity_ratio: 0.25
+  max_train_samples: 2000
+  train_split: data/HumanML3D/splits/train.txt
+  val_split: data/HumanML3D/splits/val.txt
+  xn_dir: data/HumanML3D/Xn/new_joint_vecs
+  xr_dir: data/HumanML3D/Xr/new_joint_vecs
+identity_zero_style: false
+joint_aware:
+  enabled: false
+  lambda_guidance: 0.0
+  lambda_neutral: 0.0
+  lambda_separation: 0.0
+  lambda_sparsity: 0.0
+  neutral_style: Neutral
+  sparsity_target: 0.3
+  variant: B
+jtc:
+  enabled: true
+  fuse_hidden: 256
+  glove_dir: assets/glove
+  init_gate: 0.0
+  joint_dim: 128
+  max_text_len: 22
+  new_module_lr_mult: 5.0
+  t2m_ckpt: assets/t2m/finest.tar
+  top_k: 8
+log_interval: 50
+loss:
+  adv_warmup_epochs: 0
+  lambda_adv: 0.03
+  lambda_anti_float: 0.3
+  lambda_bilateral_traj: 0.05
+  lambda_code_pres: 0.1
+  lambda_code_recon: 5.0
+  lambda_content_clf: 0.5
+  lambda_contrastive: 1.5
+  lambda_cycle: 0.5
+  lambda_diversity: 0.5
+  lambda_foot: 0.3
+  lambda_foot_contact: 2.0
+  lambda_foot_ground_y: 0.6
+  lambda_foot_soft: 1.5
+  lambda_foot_vel_contact: 3.0
+  lambda_fusion_reg: 0.1
+  lambda_leg_cross: 0.1
+  lambda_moment: 1.0
+  lambda_recon: 10.0
+  lambda_root_soft: 0.5
+  lambda_sc_bonelen: 2.0
+  lambda_sc_dir: 1.0
+  lambda_sc_mag: 0.5
+  lambda_shape_control: 1.0
+  lambda_shape_disentangle: 0.0
+  lambda_smoodi_clf: 0.5
+  lambda_style_clf: 5.0
+  lambda_style_cycle: 1.0
+  lambda_teacher: 0.0
+  lambda_teacher_dyn: 0.0
+  lambda_content_tempo: 10.0
+  lambda_floor: 5.0
+  lambda_traj_xz: 0.0
+  lambda_root_rot: 0.0
+  traj_passthrough: true
+  lambda_foot_skate_geo: 300.0
+  lambda_content_contact: 1000.0
+  lambda_content_contact_h: 150.0
+  lambda_stance_duty: 30.0
+  skate_h_thr: 0.05
+  skate_tau: 0.02
+  duty_ratio: 0.8
+  clf_on_derived: true
+  lambda_native_consistency: 1.0
+  lambda_smooth: 0.0
+  lambda_vel: 1.0
+  moment_ema: 0.99
+  physics_warmup_epochs: 0
+  recon_type: l1
+  style_clf_mask_root: false
+  use_body_only_clf: false
+metrics_interval: 5
+style_arch: mpsm_jtc
+name: morphostyle_finetune
+output_dir: outputs/train
+paths:
+  classifier_path: assets/eval_classifiers_full.pt
+  glove_dir: assets/glove
+  hml3d_mean_path: assets/hml3d_mean.npy
+  hml3d_std_path: assets/hml3d_std.npy
+  shapemove_ckpt: checkpoints/shapemymove_savae.pt
+  smoodi_classifier: ../SMooDi/PRETRAINED_WEIGHTS/style_classifier.pt
+  smoodi_ori_mean: ../SMooDi/datasets/Mean.npy
+  smoodi_ori_std: ../SMooDi/datasets/Std.npy
+  smoodi_root: ../SMooDi
+  t2m_dir: assets/t2m
+root_dims:
+- 0
+- 1
+- 2
+- 3
+save_interval: 1
+seed: 42
+style_clf_warmup: 0
+style_model:
+  code_dim: 512
+  motion_input_dim: 263
+  style_dropout_prob: 0.15
+  style_embed_dim: 256
+  style_init_std: 0.01
+  style_rank: 32
+  temporal_rank_mod: true
+  trm_hidden: 128
+teacher:
+  enabled: false
+  feats_dir: outputs/teacher/feats
+  frac: 0.7
+  pairs_json: outputs/teacher/pairs.json
+temporal_gate:
+  enabled: true
+  hidden: 128
+  init_value: 0.3
+training:
+  betas:
+  - 0.9
+  - 0.99
+  ema_decay: 0.999
+  epochs: 160
+  grad_clip: 20.0
+  lr: 1.0e-05
+  lr_min: 1.0e-06
+  warmup_steps: 50
+  weight_decay: 0.0001
+tsne:
+  enabled: false
+  every_steps: 200
+  max_styles: 16
+  per_style: 16
+  seed: 42
+  subdir: tsne
+vae:
+  activation: relu
+  code_dim: 512
+  depth: 3
+  dilation_growth_rate: 3
+  down_t: 2
+  fsq_levels:
+  - 8
+  - 5
+  - 5
+  - 5
+  input_dim: 263
+  mu: 0.99
+  nb_code: 1000
+  norm: null
+  output_emb_width: 512
+  quantizer_type: fsq
+  shape_dim: 32
+  stride_t: 2
+  width: 512
+val_at_init: false
+val_interval: 1
+val_samples: 200
